@@ -1,0 +1,29 @@
+trainer:
+  max_epochs: 1
+  accelerator: "gpu"
+  devices: "auto"
+  profiler: "advanced"
+  limit_train_batches: 0.001
+model:
+  class_path: SemanticSegmentationTask
+  init_args:
+    loss: "ce"
+    model: "unet"
+    backbone: "resnet18"
+    weights: ResNet18_Weights.SENTINEL2_ALL_MOCO
+    in_channels: 13
+    num_classes: 5
+    num_filters: 1
+    ignore_index: 4
+data:
+  class_path: Sentinel2NCCMDataModule
+  init_args:
+    batch_size: 32
+    patch_size: 32
+    num_workers: 8
+  dict_kwargs:
+    nccm_paths: "/scratch/bcnh/data/nccm"
+    nccm_download: True
+    nccm_years: [2019]
+    nccm_classes: [0, 1, 2, 3, 15]
+    sentinel2_paths: "/scratch/bcnh/data/pub-956f3eb0f5974f37b9228e0a62f449bf.r2.dev/crop_type_mapping_sentinel2/nccm/"
