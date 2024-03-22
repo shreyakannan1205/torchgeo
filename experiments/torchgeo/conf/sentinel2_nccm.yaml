@@ -3,7 +3,6 @@ trainer:
   accelerator: "gpu"
   devices: "auto"
   profiler: "advanced"
-  limit_train_batches: 0.001
 model:
   class_path: SemanticSegmentationTask
   init_args:
